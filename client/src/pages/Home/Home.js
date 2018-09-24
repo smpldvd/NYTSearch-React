@@ -3,7 +3,7 @@ import API from "../../utils/API";
 import Jumbotron from "../../components/Jumbotron/Jumbotron";
 import { FormBtn, Input } from "../../components/Form";
 import { Row, Container, Col } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
+import Result from "../../components/Results/Results";
 
 class App extends Component {
   state = {
@@ -52,18 +52,28 @@ class App extends Component {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
+  davidCall = (t, s, e) => {
+    console.log(t, s, e);
+    API.call(t, s, e).then(res => {
+      console.log(res);
+      this.setState({
+        articles: res.data.response.docs
+      });
+    });
+    // .then((res)=>{
+    //   this.setState({
+    //     articles: res.data.response.docs
+    //   })
+    // })
+  };
 
-  handleOnClick = (e) => {
-    e.preventDefault();
-    if (this.state.topic !== "") {
-      API.call(this.state.topic, this.state.start, this.state.end)
-        .then(res => {
-          this.setState({ articles: res.data.response.docs });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
+  handleOnClick = event => {
+    event.preventDefault();
+    let t = this.state.topic;
+    let s = this.state.start;
+    let e = this.state.end;
+    console.log(t, s, e);
+    this.davidCall(t, s, e);
   };
 
   render() {
@@ -110,20 +120,26 @@ class App extends Component {
               </div>
             </Col>
           </Row>
+          <br />
           <Row>
-            <List>
-              {this.state.articles.map(article => (
-                <ListItem
-                  _id={article._id}
-                  key={article._id}
-                  title={article.headline.main}
-                  date={article.pub_date}
-                  url={article.web_url}
-                  snippet={article.snippet}
-                  handleSave={this.handleSave}
-                />
-              ))}
-            </List>
+            <Col size="md-12">
+              <div className="card">
+                <div className="card-header">Results</div>
+                <div className="card-body">
+                  {this.state.articles.map(article => (
+                    <Result
+                      id={article._id}
+                      key={article._id}
+                      title={article.headline.main}
+                      date={article.pub_date}
+                      url={article.web_url}
+                      snippet={article.snippet}
+                      handleSave={this.handleSave}
+                    />
+                  ))}
+                </div>
+              </div>
+            </Col>
           </Row>
         </Container>
       </div>
