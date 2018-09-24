@@ -1,17 +1,12 @@
 import React from "react";
-import { Jumbotron } from "reactstrap";
 
-const Title = ({ children }) => (
-  <Jumbotron
-    style={{
-      height: 300,
-      clear: "both",
-      paddingTop: 120,
-      textAlign: "center"
-    }}
+const Jumbotron = ({ children }) => (
+  <div
+    style={{ height: 300, clear: "both", paddingTop: 120, textAlign: "center" }}
+    className="jumbotron"
   >
     {children}
-  </Jumbotron>
+  </div>
 );
 
-export default Title;
+export default Jumbotron;

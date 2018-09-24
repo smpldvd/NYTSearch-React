@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import API from "../../utils/API";
 import Title from "../../components/Jumbotron/Jumbotron";
 import Search from "../../components/Form/Form";
@@ -6,8 +7,7 @@ import Search from "../../components/Form/Form";
 import { Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 
-const nytApiKey = process.env.REACT_APP_NYTAPIKEY;
-const axios = require("axios");
+const nytKey = process.env.REACT_NYTAPIKEY;
 let thisYear = new Date().getFullYear();
 
 class Articles extends Component {
@@ -47,7 +47,7 @@ class Articles extends Component {
     event.preventDefault();
     if (this.state.topic && this.state.startYear) {
       var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
-      url += "?api-key=" + nytApiKey;
+      url += "?api-key=" + nytKey;
       url += "&q=" + this.state.topic;
       url += "&begin_date=" + (this.state.startYear || "1900") + "0101";
       url += "&end_date=" + (this.state.endYear || thisYear) + "1231";

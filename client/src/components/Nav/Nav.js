@@ -1,17 +1,11 @@
 import React from "react";
-import { Nav } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
-import "./Nav.css";
 
 const Nav = () => (
-  <Nav bsStyle="pills">
-    <NavLink to="/search">
-      Find
-    </NavLink>
-    <NavLink to="/saved">
-      Saved
-    </NavLink>
-  </Nav>
+  <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a className="navbar-brand" href="/">
+      NYT Search | Powered by React
+    </a>
+  </nav>
 );
 
 export default Nav;
